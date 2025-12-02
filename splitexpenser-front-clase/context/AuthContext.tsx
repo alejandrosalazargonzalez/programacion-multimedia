@@ -92,5 +92,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     [token, loading],
   );
 
+  
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };

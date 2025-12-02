@@ -26,7 +26,7 @@ export default function Home() {
           <Text onPress={() => router.replace("/groupdetails")}>{e}</Text>
         </View>
       ))}
-      <Button title="Cerrar sesión" onPress={() => void logout()} />
+      <Button title="Borrar Cuenta" onPress={() => router.replace("/unregister")} />
     </View>
   );
 }

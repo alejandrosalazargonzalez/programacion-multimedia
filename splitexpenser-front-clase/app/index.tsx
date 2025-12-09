@@ -9,6 +9,7 @@ export default function Home() {
   const { token, logout } = useContext(AuthContext);
   const router = useRouter();
   const [groups, setGroups] = useState([]);
+  const [group, setGroup] = useState('');
 
   useEffect(() => {
     loadGroupList();
@@ -36,7 +37,9 @@ export default function Home() {
       const res = await fetch(`${API_URL}/groups`, {
         method: "POST",
         headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
-      })
+        body: JSON.stringify({"name":`${group}`}),
+      },
+    )
       setGroups(await res.json())
       return await res.json();
     } catch (err) {
@@ -47,8 +50,8 @@ export default function Home() {
 return (
   <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
     <Text>Sus Grupos</Text>
-    <TextInput placeholder="Agregue su grupo"></TextInput>
-    <Button title="Registrar"></Button>
+    <TextInput placeholder="Agregue su grupo" onChangeText={setGroup} value={group}></TextInput>
+    <Button title="crear grupo" onPress={() => addGroup()}></Button>
     {groups.map((e) => (
       <View key={e}>
         <Text onPress={() => router.replace("/groupdetails")}>{e}</Text>

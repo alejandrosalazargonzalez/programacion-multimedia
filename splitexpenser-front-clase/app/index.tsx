@@ -15,7 +15,7 @@ export default function Home() {
     loadGroupList();
     if (!token) {
       setTimeout(() => router.replace("/login"), 0);
-    
+
     }
   }, [token]);
 
@@ -37,9 +37,9 @@ export default function Home() {
       const res = await fetch(`${API_URL}/groups`, {
         method: "POST",
         headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
-        body: JSON.stringify({"name":`${group}`}),
+        body: JSON.stringify({ "name": `${group}` }),
       },
-    )
+      )
       setGroups(await res.json())
       return await res.json();
     } catch (err) {
@@ -47,18 +47,18 @@ export default function Home() {
     }
   };
 
-return (
-  <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-    <Text>Sus Grupos</Text>
-    <TextInput placeholder="Agregue su grupo" onChangeText={setGroup} value={group}></TextInput>
-    <Button title="crear grupo" onPress={() => addGroup()}></Button>
-    {groups.map((e) => (
-      <View key={e}>
-        <Text onPress={() => router.replace("/groupdetails")}>{e}</Text>
-      </View>
-    ))}
-    <Button title="Cerrar Sesion" onPress={() => logout()}></Button>
-    <Button title="Borrar Cuenta" onPress={() => router.replace("/unregister")} />
-  </View>
-);
+  return (
+    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+      <Text>Sus Grupos</Text>
+      <TextInput placeholder="Agregue su grupo" onChangeText={setGroup} value={group}></TextInput>
+      <Button title="crear grupo" onPress={() => addGroup()}></Button>
+      {groups.map((e) => (
+        <View key={e}>
+          <Text onPress={() => router.replace("/groupdetails")}>{e}</Text>
+        </View>
+      ))}
+      <Button title="Cerrar Sesion" onPress={() => logout()}></Button>
+      <Button title="Borrar Cuenta" onPress={() => router.replace("/unregister")} />
+    </View>
+  );
 }
